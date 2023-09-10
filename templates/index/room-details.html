@@ -1,0 +1,123 @@
+{%extends 'base.html' %} {%block contents%} {%csrf_token%}
+<div
+  class="modal fade"
+  id="responseModal"
+  tabindex="-1"
+  aria-labelledby="responseModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="responseModalLabel">Message</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <!-- This is where the response message will be displayed -->
+        <p id="responseMessage"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Breadcrumb Section Begin -->
+<div class="breadcrumb-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="breadcrumb-text">
+          <h2>Our Rooms</h2>
+          <div class="bt-option">
+            <a href="./home.html">Home</a>
+            <span>{{data.pk}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Breadcrumb Section End -->
+
+<!-- Room Details Section Begin -->
+<section class="room-details-section spad">
+  <div class="container">
+    <div class="">
+      <div class="">
+        <div class="room-details-item">
+          <img
+            src="{{data.getimage}}"
+            alt=""
+            style="width: 100%; height: 472px; object-fit: contain"
+          />
+          <div class="rd-text">
+            <div class="rd-title">
+              <h3>{{data.name}}</h3>
+              <div class="rdt-right">
+                <div class="rating">
+                  <i class="icon_star"></i>
+                  <i class="icon_star"></i>
+                  <i class="icon_star"></i>
+                  <i class="icon_star"></i>
+                  <i class="icon_star-half_alt"></i>
+                </div>
+                <a id="book-btn">Book Now</a>
+              </div>
+            </div>
+            <h2>N{{data.price_per_month}}<span>/month</span></h2>
+            <table>
+              <tbody>
+                <tr>
+                  <td class="r-o">Capacity:</td>
+                  <td>{{data.capacity}}</td>
+                </tr>
+
+                <tr>
+                  <td class="r-o">Address:</td>
+                  <td>{{data.address}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="f-para">{{data.description}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Room Details Section End -->
+{%endblock contents%} {%block scripts%}
+<script>
+  $("#book-btn").click(() => {
+    $.ajax({
+      url: "{% url 'processBooking' %}",
+      type: "POST",
+      data: {
+        ID: `{{ data.id }}`,
+        csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+      },
+      success: (response) => {
+        if (response.positive) {
+          $("#responseMessage").text(response.positive);
+        } else if (response.negative) {
+          $("#responseMessage").text(response.negative);
+        } else {
+          $("#responseMessage").text(response.server_err);
+        }
+        $("#responseModal").modal("show");
+      },
+      error: (response) => {
+        console.log("An error occurred, try again");
+      },
+    });
+  });
+</script>
+{%endblock scripts%}

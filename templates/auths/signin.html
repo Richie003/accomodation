@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" integrity="sha512-t4GWSVZO1eC8BM339Xd7Uphw5s17a86tIZIj8qRxhnKub6WoyhnrxeCIMeAqBPgdZGlCcG2PrZjMc+Wr78+5Xg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>SignUp</title>
+<meta name="theme-color" content="#7952b3">
+
+
+<style>
+    html, body{
+        height: 100%;
+    }
+
+    body {
+        display: flex;
+        align-items: center;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #4b4b4b30;
+    }
+    .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+    }
+
+    @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+        }
+    }
+    .form-signin {
+        width: 100%;
+        max-width: 330px;
+        padding: 15px;
+        margin: auto;
+    }
+    .form-signin button{
+        background: #dfa974;
+    }
+    .form-signin button:hover{
+        background: #cd8339;
+    }
+</style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="signin.css" rel="stylesheet">
+  </head>
+<body class="text-center">
+    
+<main class="form-signin">
+  <form action="" method="POST" autocomplete="off">
+    {%csrf_token%}
+    <h1 class="h3 mb-3 fw-normal">Sign In</h1>
+
+    <div class="form-floating my-1">
+        <input type="email" name="email" id="id_email">
+      <label for="id_email">Email address</label>
+    </div>
+
+    <div class="form-floating my-1">
+      <input type="password" name="password" id="id_password">
+      <label for="floatingPassword">Password</label>
+    </div>
+    <button class="w-100 btn btn-lg text-light mt-2" type="submit">Sign in</button>
+    <p class="mt-5 mb-3 text-muted">I don't have an account <a href="{%url 'signup' %}">Sign Up</a></p>
+  </form>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $('input').addClass('form-control');
+    $('input').val('');
+  
+</script>
+  </body>
+</html>
