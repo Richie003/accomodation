@@ -1,6 +1,6 @@
-db.sqlite3
-me.html
-tutorial.py
+*db.sqlite3
+*me.html
+*tutorial.py
 projenv/
-migrations/
-media/
+*migrations/
+*media/
